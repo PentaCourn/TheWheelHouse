@@ -72,3 +72,13 @@ CREATE TABLE IF NOT EXISTS Images(
 
     FOREIGN KEY (car_id) REFERENCES Cars(ID_car)
 );
+--Тази таблица е само за тестване
+CREATE TABLE IF NOT EXISTS Testing(
+    ID INT Auto_Increment PRIMARY KEY,
+    name VARCHAR(35),
+    type VARCHAR(15),
+    path VARCHAR(255),
+    url VARCHAR(255),
+    image BLOB
+
+);
