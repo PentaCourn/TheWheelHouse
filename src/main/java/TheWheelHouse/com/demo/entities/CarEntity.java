@@ -1,5 +1,6 @@
 package TheWheelHouse.com.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,8 @@ public class CarEntity {
     @Column(name = "ID_car")
     private Long id;
 
-    @Column(name = "VIN", length = 17, nullable = false, unique = true)
+    @JsonProperty("VIN")
+    @Column(name = "VIN", length = 25, nullable = false, unique = true)
     private String VIN;
 
     @ManyToOne
@@ -53,4 +55,10 @@ public class CarEntity {
 
     @Column(name = "price", nullable = false)
     private Double price;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @Column(name = "image_count", nullable = false)
+    private Integer imageCount;
 }

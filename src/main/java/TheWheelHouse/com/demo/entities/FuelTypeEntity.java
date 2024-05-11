@@ -1,7 +1,6 @@
 package TheWheelHouse.com.demo.entities;
 
 
-import TheWheelHouse.com.demo.enums.Fuel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +18,6 @@ public class FuelTypeEntity {
     private Long id;
 
     @Column(name = "type", length = 15, nullable = false, unique = true)
-    private Fuel fuelType;
+    private String fuelType;
 
 }
