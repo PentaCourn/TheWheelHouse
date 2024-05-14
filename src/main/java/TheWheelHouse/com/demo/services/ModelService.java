@@ -5,6 +5,8 @@ import TheWheelHouse.com.demo.repositories.ModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ModelService {
@@ -34,5 +36,15 @@ public class ModelService {
 
     public ModelEntity getModelById(Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Model not found with id: " + id));
+    }
+
+    public void addModelList(List<ModelEntity> modelList) {
+        for (ModelEntity model : modelList) {
+            addModel(model);
+        }
+    }
+
+    public List<ModelEntity> getAllModelsByBrandId(Long id) {
+        return repository.getAllByBrandEntity_Id(id);
     }
 }
