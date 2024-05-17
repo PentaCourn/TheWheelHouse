@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/car-features")
 @RequiredArgsConstructor
@@ -20,17 +22,18 @@ public class CarFeatureController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addCarFeature(@RequestBody CarFeatureEntity carFeature) {
-        carFeatureService.addCarFeature(carFeature);
+        if (!carFeatureService.addCarFeature(carFeature)) {
+            return ResponseEntity.badRequest().body("CarFeature already exists");
+        }
+
         return ResponseEntity.ok("CarFeature added successfully");
     }
 
+
+
     @GetMapping("/car/{id}")
-    public ResponseEntity<CarFeatureEntity> getCarFeatureByCarId(@PathVariable Long id) {
-        return ResponseEntity.ok(carFeatureService.getCarFeatureByCarId(carService.getCarById(id)));
+    public ResponseEntity<List<Long>> getCarByCarId(@PathVariable Long id) {
+        return ResponseEntity.ok(carFeatureService.getFeaturesByCarId(id));
     }
 
-    @GetMapping("/feature/{id}")
-    public ResponseEntity<CarFeatureEntity> getCarFeatureByFeatureId(@PathVariable Long id) {
-        return ResponseEntity.ok(carFeatureService.getCarFeatureByFeatureId(featureService.getFeatureById(id)));
-    }
 }

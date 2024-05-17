@@ -29,7 +29,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	//testImplementation 'com.h2database:h2:2.1.214'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 }
 
 bootJar {

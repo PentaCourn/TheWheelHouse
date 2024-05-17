@@ -1,26 +1,53 @@
 package TheWheelHouse.com.demo.services;
 
+import TheWheelHouse.com.demo.dto.CarFeaturesDto;
 import TheWheelHouse.com.demo.entities.CarEntity;
 import TheWheelHouse.com.demo.entities.CarFeatureEntity;
 import TheWheelHouse.com.demo.entities.FeatureEntity;
 import TheWheelHouse.com.demo.repositories.CarFeatureRepository;
+import TheWheelHouse.com.demo.repositories.FeatureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CarFeatureService {
     private final CarFeatureRepository repository;
+    private final FeatureRepository featureRepository;
 
-    public void addCarFeature(CarFeatureEntity carFeature) {
+    public boolean addCarFeature(CarFeatureEntity carFeature) {
+        List<CarFeatureEntity> carFeaturesByCar = repository.getCarFeatureByCar(carFeature.getCar().getId());
+        List<CarFeatureEntity> carFeaturesByFeature = repository.getCarFeatureByFeature(carFeature.getFeature().getId());
+
+        if (!carFeaturesByCar.isEmpty() && !carFeaturesByFeature.isEmpty()) {
+            return false;
+        }
         repository.save(carFeature);
+        return true;
     }
 
-    public CarFeatureEntity getCarFeatureByCarId(CarEntity car) {
-        return repository.getCarFeatureByCar(car).orElseThrow(() -> new IllegalArgumentException("CarFeature not found with id: " + car.getId()));
+
+    public List<Long> getFeaturesByCarId(Long id) {
+        return repository.getFeaturesByCarId(id);
     }
 
-    public CarFeatureEntity getCarFeatureByFeatureId(FeatureEntity feature) {
-        return repository.getCarFeatureByFeature(feature).orElseThrow(() -> new IllegalArgumentException("CarFeature not found with id: " + feature.getId()));
+
+    public void addCarFeatureList(CarFeaturesDto carFeaturesDto) {
+        CarEntity car = carFeaturesDto.getCarEntity();
+        List<Long> features = carFeaturesDto.getFeatures();
+        FeatureEntity feature;
+
+        for (Long featureId : features) {
+            CarFeatureEntity carFeature = new CarFeatureEntity();
+            carFeature.setCar(car);
+            feature = featureRepository.getById(featureId);
+            carFeature.setFeature(feature);
+            repository.save(carFeature);
+        }
+
+
     }
 }

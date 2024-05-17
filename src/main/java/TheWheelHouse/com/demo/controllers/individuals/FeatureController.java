@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/features")
 @RequiredArgsConstructor
@@ -24,5 +26,20 @@ public class FeatureController {
         return ResponseEntity.ok("Feature updated successfully");
     }
 
+    @PostMapping("/addList")
+    public ResponseEntity<String> addFeatures(@RequestBody List<FeatureEntity> features) {
+        featureService.addFeatures(features);
+        return ResponseEntity.ok("Features added successfully");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<String> getFeatureById(@PathVariable Long id) {
+        return ResponseEntity.ok(featureService.getFeatureById(id));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<FeatureEntity>> getFeatures() {
+        return ResponseEntity.ok(featureService.getAllFeatures());
+    }
 
 }

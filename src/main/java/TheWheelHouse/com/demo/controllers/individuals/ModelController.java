@@ -1,16 +1,20 @@
 package TheWheelHouse.com.demo.controllers.individuals;
 
 import TheWheelHouse.com.demo.entities.ModelEntity;
+import TheWheelHouse.com.demo.services.BrandService;
 import TheWheelHouse.com.demo.services.ModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/models")
 @RequiredArgsConstructor
 public class ModelController {
     private final ModelService modelService;
+    private final BrandService brandService;
 
     @PostMapping("/add")
     public ResponseEntity<String> addModel(@RequestBody ModelEntity model) {
@@ -38,5 +42,17 @@ public class ModelController {
     @GetMapping("/{id}")
     public ResponseEntity<ModelEntity> getModelById(@PathVariable Long id) {
         return ResponseEntity.ok(modelService.getModelById(id));
+    }
+
+    @GetMapping("/all/{brandName}")
+    public ResponseEntity<List<ModelEntity>> getAllModelsByBrandId(@PathVariable String brandName) {
+        Long id = brandService.getBrandByName(brandName).getId();
+        return ResponseEntity.ok(modelService.getAllModelsByBrandId(id));
+    }
+
+    @PostMapping("/addList")
+    public ResponseEntity<String> addModelList(@RequestBody List<ModelEntity> modelList) {
+        modelService.addModelList(modelList);
+        return ResponseEntity.ok("Models added successfully");
     }
 }
