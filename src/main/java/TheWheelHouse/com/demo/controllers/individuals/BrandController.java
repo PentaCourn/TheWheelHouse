@@ -31,6 +31,13 @@ public class BrandController {
         return ResponseEntity.ok("Brand added successfully");
     }
 
+    //write an endpoint that will add a list of brands
+    @PostMapping("/addList")
+    public ResponseEntity<String> addBrands(@RequestBody List<BrandEntity> brands) {
+        brandService.addBrands(brands);
+        return ResponseEntity.ok("Brands added successfully");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updateBrand(@PathVariable Long id, @RequestBody BrandEntity brand) {
         brandService.updateBrand(id, brand);

@@ -1,6 +1,6 @@
 package TheWheelHouse.com.demo.entities;
 
-import TheWheelHouse.com.demo.enums.Color;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,7 @@ public class ColorEntity {
     @Column(name = "ID_color")
     private Long id;
 
+
     @Column(name = "color", length = 15, nullable = false, unique = true)
-    private Color color;
+    private String color;
 }

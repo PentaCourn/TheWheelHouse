@@ -38,4 +38,9 @@ public class BrandService {
         return repository.findAll();
     }
 
+    public void addBrands(List<BrandEntity> brands) {
+        for (BrandEntity brand : brands) {
+            addBrand(brand);
+        }
+    }
 }

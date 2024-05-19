@@ -1,6 +1,6 @@
 package TheWheelHouse.com.demo.entities;
 
-import TheWheelHouse.com.demo.enums.Transmission;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,8 @@ public class TransmissionEntity {
     @Column(name = "ID_transmission")
     private Long id;
 
+
     @Column(name = "type", length = 15, nullable = false, unique = true)
-    private Transmission transmission;
+    private String transmission;
 
 }
