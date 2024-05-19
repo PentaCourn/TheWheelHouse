@@ -74,5 +74,4 @@ CREATE TABLE IF NOT EXISTS Testing(
     path VARCHAR(255),
     url VARCHAR(255),
     image BLOB
-
 );
